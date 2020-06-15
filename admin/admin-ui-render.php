@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Admin UI setup and render
  *
@@ -9,59 +10,57 @@
  */
 
 // Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) exit;
+if (!defined('ABSPATH')) exit;
 
 /**
  * Callback function for General Settings section
  *
  * @since 1.0
  */
-function mpn_general_settings_section_callback() {
+function mpn_auth0_settings_section_callback()
+{
 	echo '<p>' . __('A long description for the settings section goes here.', 'mobility-platform-notifications-plugin') . '</p>';
 }
 
 /**
- * Callback function for General Settings field
+ * Callback function for Client Id Settings field
  *
  * @since 1.0
  */
-function mpn_general_settings_field_callback() {	
-
-	// Get Settings
+function mpn_auth0_settings_field_client_id_callback()
+{
 	$settings = mpn_get_settings();
-
-	// General Settings. Name of form element should be same as the setting name in register_setting(). ?>
-	
+?>
 	<fieldset>
-	
-		<!-- Setting one -->
-		<input type="checkbox" name="mpn_settings[setting_one]" id="mpn_settings[setting_one]" value="1" 
-			<?php if ( isset( $settings['setting_one'] ) ) { checked( '1', $settings['setting_one'] ); } ?>>
-			<label for="mpn_settings[setting_one]"><?php _e('Setting one', 'mobility-platform-notifications-plugin') ?></label>
-			<br>
-			
-		<!-- Setting two -->
-		<input type="checkbox" name="mpn_settings[setting_two]" id="mpn_settings[setting_two]" value="1" 
-			<?php if ( isset( $settings['setting_two'] ) ) { checked( '1', $settings['setting_two'] ); } ?>>
-			<label for="mpn_settings[setting_two]"><?php _e('Setting two', 'mobility-platform-notifications-plugin') ?></label>
-			<br>
-		
-		<!-- Text Input -->
-		<input type="text" name="mpn_settings[text_input]" class="regular-text" value="<?php if ( isset( $settings['text_input'] ) && ( ! empty($settings['text_input']) ) ) echo esc_attr($settings['text_input']); ?>"/>
-		<p class="description"><?php _e('Description of the text input field', 'mobility-platform-notifications-plugin'); ?></p>
-		
+		<input type="text" name="mpn_settings[client_id]" class="regular-text" value="<?php if (isset($settings['client_id']) && (!empty($settings['client_id']))) echo esc_attr($settings['client_id']); ?>" />
 	</fieldset>
-	<?php
+<?php
 }
- 
+
+/**
+ * Callback function for Client Secret Settings field
+ *
+ * @since 1.0
+ */
+function mpn_auth0_settings_field_client_secret_callback()
+{
+	$settings = mpn_get_settings();
+?>
+	<fieldset>
+		<input type="text" name="mpn_settings[client_secret]" class="regular-text" value="<?php if (isset($settings['client_secret']) && (!empty($settings['client_secret']))) echo esc_attr($settings['client_secret']); ?>" />
+	</fieldset>
+<?php
+}
+
 /**
  * Admin interface renderer
  *
  * @since 1.0
- */ 
-function mpn_admin_interface_render () {
-	
-	if ( ! current_user_can( 'manage_options' ) ) {
+ */
+function mpn_admin_interface_render()
+{
+
+	if (!current_user_can('manage_options')) {
 		return;
 	}
 
@@ -76,23 +75,23 @@ function mpn_admin_interface_render () {
 	}
  
 	// Show Settings Saved Message
-	settings_errors( 'mpn_settings_saved_message' ); */?> 
-	
-	<div class="wrap">	
+	settings_errors( 'mpn_settings_saved_message' ); */ ?>
+
+	<div class="wrap">
 		<h1>Mobility Platform Notifications</h1>
-		
-		<form action="options.php" method="post">		
+
+		<form action="options.php" method="post">
 			<?php
 			// Output nonce, action, and option_page fields for a settings page.
-			settings_fields( 'mpn_settings_group' );
-			
+			settings_fields('mpn_settings_group');
+
 			// Prints out all settings sections added to a particular settings page. 
-			do_settings_sections( 'mobility-platform-notifications-plugin' );	// Page slug
-			
+			do_settings_sections('mobility-platform-notifications-plugin');	// Page slug
+
 			// Output save settings button
-			submit_button( __('Save Settings', 'mobility-platform-notifications-plugin') );
+			submit_button(__('Save Settings', 'mobility-platform-notifications-plugin'));
 			?>
 		</form>
 	</div>
-	<?php
+<?php
 }
