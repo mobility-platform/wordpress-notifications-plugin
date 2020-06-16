@@ -48,7 +48,6 @@ function mpn_register_settings()
 		'mobility-platform-notifications-plugin'											// Page slug
 	);
 
-	// General Settings
 	add_settings_field(
 		'mpn_auth0_settings_field_client_id',							// ID
 		__('Client ID', 'mobility-platform-notifications-plugin'),					// Title
@@ -63,6 +62,30 @@ function mpn_register_settings()
 		'mpn_auth0_settings_field_client_secret_callback',					// Callback function
 		'mobility-platform-notifications-plugin',											// Page slug
 		'mpn_auth0_settings_section'							// Settings Section ID
+	);
+
+	add_settings_field(
+		'mpn_auth0_settings_field_domain',							// ID
+		__('Auth0 Domain', 'mobility-platform-notifications-plugin'),					// Title
+		'mpn_auth0_settings_field_domain_callback',					// Callback function
+		'mobility-platform-notifications-plugin',											// Page slug
+		'mpn_auth0_settings_section'							// Settings Section ID
+	);
+
+	// Register A New Section
+	add_settings_section(
+		'mpn_notifications_settings_section',							// ID
+		__('Mobility Platform Notifications API', 'mobility-platform-notifications-plugin'),		// Title
+		'mpn_notifications_settings_section_callback',					// Callback Function
+		'mobility-platform-notifications-plugin'											// Page slug
+	);
+
+	add_settings_field(
+		'mpn_notifications_settings_field_api',							// ID
+		__('Notifications API', 'mobility-platform-notifications-plugin'),					// Title
+		'mpn_notifications_settings_field_notifications_api_callback',					// Callback function
+		'mobility-platform-notifications-plugin',											// Page slug
+		'mpn_notifications_settings_section'							// Settings Section ID
 	);
 }
 add_action('admin_init', 'mpn_register_settings');
@@ -90,14 +113,7 @@ function mpn_validater_and_sanitizer($settings)
  */
 function mpn_get_settings()
 {
-
-	$defaults = array(
-		'setting_one' 	=> '1',
-		'setting_two' 	=> '1',
-	);
-
-	$settings = get_option('mpn_settings', $defaults);
-
+	$settings = get_option('mpn_settings');
 	return $settings;
 }
 

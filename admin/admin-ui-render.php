@@ -13,13 +13,23 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Callback function for General Settings section
+ * Callback function for Auth0 Settings section
  *
  * @since 1.0
  */
 function mpn_auth0_settings_section_callback()
 {
-	echo '<p>' . __('A long description for the settings section goes here.', 'mobility-platform-notifications-plugin') . '</p>';
+	echo '<p>' . __('Please register your application under Auth0 then complete the information below.', 'mobility-platform-notifications-plugin') . '</p>';
+}
+
+/**
+ * Callback function for Notifications API Settings section
+ *
+ * @since 1.0
+ */
+function mpn_notifications_settings_section_callback()
+{
+	echo '<p>' . __('Enter the URL of the Notifications API below. More informations at: https://mobility-platform-docs.netlify.app/', 'mobility-platform-notifications-plugin') . '</p>';
 }
 
 /**
@@ -48,6 +58,36 @@ function mpn_auth0_settings_field_client_secret_callback()
 ?>
 	<fieldset>
 		<input type="text" name="mpn_settings[client_secret]" class="regular-text" value="<?php if (isset($settings['client_secret']) && (!empty($settings['client_secret']))) echo esc_attr($settings['client_secret']); ?>" />
+	</fieldset>
+<?php
+}
+
+/**
+ * Callback function for Domain Settings field
+ *
+ * @since 1.0
+ */
+function mpn_auth0_settings_field_domain_callback()
+{
+	$settings = mpn_get_settings();
+?>
+	<fieldset>
+		<input type="text" name="mpn_settings[domain]" class="regular-text" value="<?php if (isset($settings['domain']) && (!empty($settings['domain']))) echo esc_attr($settings['domain']); ?>" />
+	</fieldset>
+<?php
+}
+
+/**
+ * Callback function for Notifications API Settings field
+ *
+ * @since 1.0
+ */
+function mpn_notifications_settings_field_notifications_api_callback()
+{
+	$settings = mpn_get_settings();
+?>
+	<fieldset>
+		<input type="text" name="mpn_settings[notifications_api]" class="regular-text" value="<?php if (isset($settings['notifications_api']) && (!empty($settings['notifications_api']))) echo esc_attr($settings['notifications_api']); ?>" />
 	</fieldset>
 <?php
 }
