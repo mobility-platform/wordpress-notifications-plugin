@@ -58,7 +58,7 @@ function mobility_platform_transition_post_status(string $new_status, string $ol
     }
 
     $language = preg_split('/_/', get_bloginfo('language'))[0];
-    if (pll_get_post_language($post->ID)) {
+    if (function_exists('pll_get_post_language')) {
         $language = pll_get_post_language($post->ID);
     }
 
