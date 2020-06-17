@@ -12,6 +12,6 @@
 
 Activate plugin and go to "Settings" -> "Mobility Platform Notifications". Follow the instructions and fill the field to activate notifications on publish.
 
-## License
+## Licence
 
 [Attribution-NoDerivatives 4.0 International (CC BY-ND 4.0)](https://creativecommons.org/licenses/by-nd/4.0/)
