@@ -57,10 +57,11 @@ function mobility_platform_transition_post_status(string $new_status, string $ol
         error_log("Your Wordpress site don't have any favicon or name");
     }
 
-    $language = preg_split('/_/', get_bloginfo('language'))[0];
+    $language = get_bloginfo('language');
     if (function_exists('pll_get_post_language')) {
         $language = pll_get_post_language($post->ID);
     }
+    $language = preg_split('/-/', $language)[0];
 
     $content = @file_get_contents($settings["notifications_api"], false, stream_context_create([
         'http' => [
@@ -75,14 +76,6 @@ function mobility_platform_transition_post_status(string $new_status, string $ol
             ])
         ]
     ]));
-
-    error_log(get_bloginfo('name'));
-    error_log(esc_html(get_the_title($post)));
-    error_log(get_site_icon_url());
-    error_log($language);
-    error_log(get_permalink($post));
-    error_log("");
-    error_log($content);
 
     if ($content === FALSE) {
         error_log("Failed to send notification for post $post->ID");
